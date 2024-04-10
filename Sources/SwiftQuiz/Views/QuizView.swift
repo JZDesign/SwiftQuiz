@@ -105,7 +105,7 @@ public struct QuizView: View {
 
 #Preview {
     _preview()
-        .environment(\.quizStyle, Style(unselectedIndicatorColor: .gray, selectedIndicatorColor: .blue))
+        .environment(\.quizStyle, Style(unselectedPrimaryColor: .gray, selectedPrimaryColor: .cyan))
 }
 
 struct _preview: View {

@@ -48,7 +48,7 @@ public struct AnswerCell: View {
                 filledImage
                     .opacity(isSelected ? 1 : 0)
             }
-            .foregroundStyle(isSelected ? style.selectedIndicatorColor : style.unselectedIndicatorColor)
+            .foregroundStyle(isSelected ? style.selectedPrimaryColor : style.unselectedPrimaryColor)
         
     }
     
@@ -88,9 +88,9 @@ public struct AnswerCell: View {
             AnswerCell(isSelected: false, answer: .init(id: .init(), value: "This is a sample answer"), type: .multipleChoice) {}
                 .environment(\.quizStyle, .init(cornerRadius: 100))
             AnswerCell(isSelected: true, answer: .init(id: .init(), value: "This is a sample answer"), type: .singleCoice) {}
-                .environment(\.quizStyle, .init(unselectedIndicatorColor: .gray, selectedIndicatorColor: .blue))
+                .environment(\.quizStyle, .init(unselectedPrimaryColor: .gray, selectedPrimaryColor: .blue))
             AnswerCell(isSelected: true, answer: .init(id: .init(), value: "This is a sample answer"), type: .multipleChoice) {}
-                .environment(\.quizStyle, .init(selectedIndicatorColor: .indigo))
+                .environment(\.quizStyle, .init(selectedPrimaryColor: .indigo))
                 // Add custom Background
                 .background(Color.black)
                 .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))

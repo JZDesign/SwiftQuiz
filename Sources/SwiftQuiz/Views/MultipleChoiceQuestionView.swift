@@ -60,6 +60,7 @@ public struct MultipleChoiceQuestionView: View {
                 }
             }, label: {
                 Text("Submit")
+                    .foregroundStyle(selection.count != question.correctAnswers.count ? style.unselectedBorderColor : style.selectedPrimaryColor)
             })
             .disabled(selection.count != question.correctAnswers.count)
             .bold()
@@ -86,7 +87,7 @@ public struct MultipleChoiceQuestionView: View {
         )) { answer in
             
         }
-        .environment(\.quizStyle, .init(unselectedIndicatorColor: .gray, selectedIndicatorColor: .red))
+        .environment(\.quizStyle, .init(unselectedPrimaryColor: .gray, selectedPrimaryColor: .red))
 
 }
 

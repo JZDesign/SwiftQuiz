@@ -1,8 +1,8 @@
 import SwiftUI
 
 public struct Style {
-    let unselectedIndicatorColor: Color
-    let selectedIndicatorColor: Color
+    let unselectedPrimaryColor: Color
+    let selectedPrimaryColor: Color
     let unselectedBorderColor: Color
     let selectedBorderColor: Color
     let cornerRadius: CGFloat
@@ -11,8 +11,8 @@ public struct Style {
     public init(
         cornerRadius: CGFloat = 5,
         shouldFillHorizontalSpace: Bool = true,
-        unselectedIndicatorColor: Color? = nil,
-        selectedIndicatorColor: Color? = nil,
+        unselectedPrimaryColor: Color? = nil,
+        selectedPrimaryColor: Color? = nil,
         unselectedBorderColor: Color? = nil,
         selectedBorderColor: Color? = nil
     ) {
@@ -20,28 +20,28 @@ public struct Style {
         self.shouldFillHorizontalSpace = shouldFillHorizontalSpace
         
         
-        if let unselectedIndicatorColor {
-            self.unselectedIndicatorColor = unselectedIndicatorColor
+        if let unselectedPrimaryColor {
+            self.unselectedPrimaryColor = unselectedPrimaryColor
         } else {
-            self.unselectedIndicatorColor = Color.primary
+            self.unselectedPrimaryColor = Color.primary
         }
         
-        if let selectedIndicatorColor {
-            self.selectedIndicatorColor = selectedIndicatorColor
+        if let selectedPrimaryColor {
+            self.selectedPrimaryColor = selectedPrimaryColor
         } else {
-            self.selectedIndicatorColor = Color.primary
+            self.selectedPrimaryColor = Color.primary
         }
         
         if let unselectedBorderColor {
             self.unselectedBorderColor = unselectedBorderColor
         } else {
-            self.unselectedBorderColor = unselectedIndicatorColor ?? Color.primary
+            self.unselectedBorderColor = unselectedPrimaryColor ?? Color.primary
         }
         
         if let selectedBorderColor {
             self.selectedBorderColor = selectedBorderColor
         } else {
-            self.selectedBorderColor = selectedIndicatorColor ?? Color.primary
+            self.selectedBorderColor = selectedPrimaryColor ?? Color.primary
         }
     }
 }

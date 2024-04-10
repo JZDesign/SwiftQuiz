@@ -43,6 +43,7 @@ public struct SingleChoiceQuestionView: View {
                 }
             }, label: {
                 Text("Submit")
+                    .foregroundStyle(selection == nil ? style.unselectedBorderColor : style.selectedPrimaryColor)
             })
             .disabled(selection == nil)
             .bold()
@@ -69,5 +70,5 @@ public struct SingleChoiceQuestionView: View {
         )) { answer in
             
         }
-        .environment(\.quizStyle, .init(unselectedIndicatorColor: .gray, selectedIndicatorColor: .red))
+        .environment(\.quizStyle, .init(unselectedPrimaryColor: .gray, selectedPrimaryColor: .red))
 }

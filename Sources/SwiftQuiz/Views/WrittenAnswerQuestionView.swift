@@ -23,7 +23,7 @@ public struct WrittenAnswerQuestionView: View {
                 if question.type == .short {
                     TextField("Answer", text: $answer)
                         .textFieldStyle(.plain)
-                        .tint(style.selectedIndicatorColor)
+                        .tint(style.selectedPrimaryColor)
                         .focused($isFocused)
                         .padding()
                         .overlay(
@@ -34,7 +34,7 @@ public struct WrittenAnswerQuestionView: View {
                 } else {
                     ZStack {
                         TextEditor(text: $answer)
-                            .tint(style.selectedIndicatorColor)
+                            .tint(style.selectedPrimaryColor)
                             .focused($isFocused)
                         Text(answer)
                             .opacity(0)
@@ -57,6 +57,7 @@ public struct WrittenAnswerQuestionView: View {
                 }
             }, label: {
                 Text("Submit")
+                    .foregroundStyle(answer.isEmpty ? style.unselectedBorderColor : style.selectedPrimaryColor)
             })
             .disabled(answer.isEmpty)
             .bold()
@@ -76,5 +77,5 @@ public struct WrittenAnswerQuestionView: View {
             type: .long
         )
     ) { _ in }
-        .environment(\.quizStyle, .init(unselectedIndicatorColor: .gray, selectedIndicatorColor: .red))
+        .environment(\.quizStyle, .init(unselectedPrimaryColor: .gray, selectedPrimaryColor: .red))
 }
