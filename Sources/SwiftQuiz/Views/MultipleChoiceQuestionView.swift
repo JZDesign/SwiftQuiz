@@ -6,6 +6,7 @@ public struct MultipleChoiceQuestionView: View {
 
     @State var selection: [Answer] = []
     @Environment(\.quizStyle) var style
+    @Environment(\.dynamicTypeSize) var dynamic
 
 
     public init(question: MultipleChoiceQuestion, action: @escaping ([Answer]) -> Void) {
@@ -20,6 +21,7 @@ public struct MultipleChoiceQuestionView: View {
         Text("Select \(question.correctAnswers.count)")
             .font(.callout)
             .bold()
+            .padding(.horizontal)
             .padding(.top, 4)
             .padding(.bottom)
             .opacity(0.6)
@@ -44,7 +46,7 @@ public struct MultipleChoiceQuestionView: View {
     
     public var body: some View {
         ScrollView {
-            VStack {
+            VStack(alignment: dynamic.isAccessibilitySize ? .center : .leading) {
                 Text(question.content)
                     .font(.title).fontWeight(.semibold)
                     .padding(.horizontal)
