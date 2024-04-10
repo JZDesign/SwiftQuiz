@@ -1,14 +1,20 @@
 import SwiftUI
 
-struct WrittenAnswerQuestionView: View {
+public struct WrittenAnswerQuestionView: View {
     let style: Style
     let question: WrittenResponseQuestion
     let action: (String) -> Void
 
+    public init(style: Style, question: WrittenResponseQuestion, action: @escaping (String) -> Void) {
+        self.style = style
+        self.question = question
+        self.action = action
+    }
+    
     @State var answer = ""
     @FocusState var isFocused
 
-    var body: some View {
+    public var body: some View {
         ScrollView {
             VStack {
                 Text(question.content)

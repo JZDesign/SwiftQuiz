@@ -1,10 +1,17 @@
 import SwiftUI
 
-struct SingleChoiceQuestionView: View {
+public struct SingleChoiceQuestionView: View {
     let style: Style
     let question: SingleChoiceQuestion
-    @State var selection: Answer?
     let action: (Answer) -> Void
+    
+    @State var selection: Answer?
+    
+    public init(style: Style, question: SingleChoiceQuestion, action: @escaping (Answer) -> Void) {
+        self.style = style
+        self.question = question
+        self.action = action
+    }
     
     @ViewBuilder
     var answer: some View {
@@ -19,7 +26,7 @@ struct SingleChoiceQuestionView: View {
         }
     }
     
-    var body: some View {
+    public var body: some View {
         ScrollView {
             VStack {
                 Text(question.content)
