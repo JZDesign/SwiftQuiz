@@ -1,14 +1,13 @@
 import SwiftUI
 
 public struct SingleChoiceQuestionView: View {
-    let style: Style
     let question: SingleChoiceQuestion
     let action: (Answer) -> Void
     
     @State var selection: Answer?
+    @Environment(\.quizStyle) var style
     
-    public init(style: Style, question: SingleChoiceQuestion, action: @escaping (Answer) -> Void) {
-        self.style = style
+    public init(question: SingleChoiceQuestion, action: @escaping (Answer) -> Void) {
         self.question = question
         self.action = action
     }
@@ -16,7 +15,7 @@ public struct SingleChoiceQuestionView: View {
     @ViewBuilder
     var answer: some View {
         ForEach(question.options) { option in
-            AnswerCell(isSelected: selection == option, answer: option, type: .singleCoice, style: style) {
+            AnswerCell(isSelected: selection == option, answer: option, type: .singleCoice) {
                 withAnimation(.snappy(extraBounce: 0.5)) {
                     selection = option
                 }
@@ -56,7 +55,6 @@ public struct SingleChoiceQuestionView: View {
 
 #Preview {
     SingleChoiceQuestionView(
-        style: .init(unselectedIndicatorColor: .gray, selectedIndicatorColor: .red),
         question: .init(
         id: .init(),
         content: "What is the answer to life and everything?",
@@ -71,19 +69,5 @@ public struct SingleChoiceQuestionView: View {
         )) { answer in
             
         }
+        .environment(\.quizStyle, .init(unselectedIndicatorColor: .gray, selectedIndicatorColor: .red))
 }
-
-//Text("Select \(multipleChoiceQuestion.correctAnswers.count)")
-//    .font(.callout)
-//    .padding()
-//ForEach(multipleChoiceQuestion.options) { option in
-//    AnswerCell(isSelected: selections.contains(option), answer: option, type: .multipleChoice) {
-//        if selections.contains(option) {
-//            selections.removeAll { answer in
-//                answer == option
-//            }
-//        } else {
-//            selections.append(option)
-//        }
-//    }
-//}

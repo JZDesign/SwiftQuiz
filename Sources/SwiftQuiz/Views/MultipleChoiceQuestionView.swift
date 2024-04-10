@@ -1,15 +1,14 @@
 import SwiftUI
 
 public struct MultipleChoiceQuestionView: View {
-    let style: Style
     let question: MultipleChoiceQuestion
     let action: ([Answer]) -> Void
 
     @State var selection: [Answer] = []
-    
+    @Environment(\.quizStyle) var style
 
-    public init(style: Style, question: MultipleChoiceQuestion, action: @escaping ([Answer]) -> Void) {
-        self.style = style
+
+    public init(question: MultipleChoiceQuestion, action: @escaping ([Answer]) -> Void) {
         self.question = question
         self.action = action
     }
@@ -26,7 +25,7 @@ public struct MultipleChoiceQuestionView: View {
             .opacity(0.6)
             
         ForEach(question.options) { option in
-            AnswerCell(isSelected: selection.contains(option), answer: option, type: .multipleChoice, style: style) {
+            AnswerCell(isSelected: selection.contains(option), answer: option, type: .multipleChoice) {
                 withAnimation(.snappy(extraBounce: 0.5)) {
                     if selection.contains(option) {
                         selection.removeAll { answer in
@@ -73,7 +72,6 @@ public struct MultipleChoiceQuestionView: View {
 
 #Preview {
     MultipleChoiceQuestionView(
-        style: .init(unselectedIndicatorColor: .gray, selectedIndicatorColor: .red),
         question: .init(
         id: .init(),
         content: "What is the answer to life and everything?",
@@ -88,5 +86,7 @@ public struct MultipleChoiceQuestionView: View {
         )) { answer in
             
         }
+        .environment(\.quizStyle, .init(unselectedIndicatorColor: .gray, selectedIndicatorColor: .red))
+
 }
 

@@ -1,16 +1,15 @@
 import SwiftUI
 
 public struct WrittenAnswerQuestionView: View {
-    let style: Style
     let question: WrittenResponseQuestion
     let action: (String) -> Void
 
-    public init(style: Style, question: WrittenResponseQuestion, action: @escaping (String) -> Void) {
-        self.style = style
+    public init(question: WrittenResponseQuestion, action: @escaping (String) -> Void) {
         self.question = question
         self.action = action
     }
     
+    @Environment(\.quizStyle) var style
     @State var answer = ""
     @FocusState var isFocused
 
@@ -71,11 +70,11 @@ public struct WrittenAnswerQuestionView: View {
 
 #Preview {
     WrittenAnswerQuestionView(
-        style: .init(unselectedIndicatorColor: .gray, selectedIndicatorColor: .red),
         question: .init(
             id: .init(),
             content: "What is the answer to life and everything?",
             type: .long
         )
     ) { _ in }
+        .environment(\.quizStyle, .init(unselectedIndicatorColor: .gray, selectedIndicatorColor: .red))
 }

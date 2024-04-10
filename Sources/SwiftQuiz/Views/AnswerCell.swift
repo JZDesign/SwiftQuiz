@@ -5,41 +5,22 @@ public struct AnswerCell: View {
     let answer: Answer
     let type: ChoiceType
     
-    let unselectedIndicatorColor: Color
-    let selectedIndicatorColor: Color
-    
-    let unselectedBorderColor: Color
-    let selectedBorderColor: Color
-    
-    let cornerRadius: CGFloat
-    let shouldFillHorizontalSpace: Bool
-    
     let onTap: () -> Void
     
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    @Environment(\.quizStyle) var style
 
     
     public init(
         isSelected: Bool,
         answer: Answer,
         type: ChoiceType,
-        style: Style = .init(),
         onTap: @escaping () -> Void
     ) {
         self.isSelected = isSelected
         self.answer = answer
         self.type = type
-        self.cornerRadius = style.cornerRadius
-        self.shouldFillHorizontalSpace = style.shouldFillHorizontalSpace
-        
         self.onTap = onTap
-        
-        self.unselectedIndicatorColor = style.unselectedIndicatorColor
-        
-        self.selectedIndicatorColor = style.selectedIndicatorColor
-        
-        self.unselectedBorderColor = style.unselectedBorderColor
-        self.selectedBorderColor = style.selectedBorderColor
     }
     
     var filledImage: Image {
@@ -67,7 +48,7 @@ public struct AnswerCell: View {
                 filledImage
                     .opacity(isSelected ? 1 : 0)
             }
-            .foregroundStyle(isSelected ? selectedIndicatorColor : unselectedIndicatorColor)
+            .foregroundStyle(isSelected ? style.selectedIndicatorColor : style.unselectedIndicatorColor)
         
     }
     
@@ -82,11 +63,11 @@ public struct AnswerCell: View {
                     .multilineTextAlignment(dynamicTypeSize.isAccessibilitySize ? .center : .leading)
             }
             .contentShape(Rectangle())
-            .frame(maxWidth: shouldFillHorizontalSpace ? .infinity : nil)
+            .frame(maxWidth: style.shouldFillHorizontalSpace ? .infinity : nil)
             .padding()
             .background(content: {
-                RoundedRectangle(cornerSize: CGSize(width: cornerRadius, height: cornerRadius))
-                    .stroke(isSelected ? selectedBorderColor : unselectedBorderColor, lineWidth: dynamicTypeSize.isAccessibilitySize ? 4 : 2)
+                RoundedRectangle(cornerSize: CGSize(width: style.cornerRadius, height: style.cornerRadius))
+                    .stroke(isSelected ? style.selectedBorderColor : style.unselectedBorderColor, lineWidth: dynamicTypeSize.isAccessibilitySize ? 4 : 2)
                     
             })
         }).buttonStyle(.plain)
@@ -101,11 +82,15 @@ public struct AnswerCell: View {
 #Preview {
     ScrollView {
         VStack {
-            AnswerCell(isSelected: false, answer: .init(id: .init(), value: "This is a sample answer"), type: .singleCoice, style: .init(shouldFillHorizontalSpace: false)) {}
+            AnswerCell(isSelected: false, answer: .init(id: .init(), value: "This is a sample answer"), type: .singleCoice) {}
                 .foregroundStyle(Color.indigo)
-            AnswerCell(isSelected: false, answer: .init(id: .init(), value: "This is a sample answer"), type: .multipleChoice, style: .init(cornerRadius: 100)) {}
-            AnswerCell(isSelected: true, answer: .init(id: .init(), value: "This is a sample answer"), type: .singleCoice, style: .init(unselectedIndicatorColor: .gray, selectedIndicatorColor: .blue)) {}
-            AnswerCell(isSelected: true, answer: .init(id: .init(), value: "This is a sample answer"), type: .multipleChoice, style: .init(selectedIndicatorColor: .indigo)) {}
+                .environment(\.quizStyle, .init(shouldFillHorizontalSpace: false))
+            AnswerCell(isSelected: false, answer: .init(id: .init(), value: "This is a sample answer"), type: .multipleChoice) {}
+                .environment(\.quizStyle, .init(cornerRadius: 100))
+            AnswerCell(isSelected: true, answer: .init(id: .init(), value: "This is a sample answer"), type: .singleCoice) {}
+                .environment(\.quizStyle, .init(unselectedIndicatorColor: .gray, selectedIndicatorColor: .blue))
+            AnswerCell(isSelected: true, answer: .init(id: .init(), value: "This is a sample answer"), type: .multipleChoice) {}
+                .environment(\.quizStyle, .init(selectedIndicatorColor: .indigo))
                 // Add custom Background
                 .background(Color.black)
                 .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
