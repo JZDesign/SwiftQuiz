@@ -28,6 +28,23 @@ public struct MultipleChoiceQuestion: Codable {
     }
 }
 
+public struct MultiSelectSurveyQuestion: Codable {
+    public let id: UUID
+    public let content: String
+    public let options: [Answer]
+    public let selectAtLeast: UInt
+    public let selectAtMost: UInt
+    
+    public init(id: UUID, content: String, options: [Answer], selectAtLeast: UInt, selectAtMost: UInt) {
+        self.id = id
+        self.content = content
+        self.options = options
+        self.selectAtLeast = selectAtLeast
+        self.selectAtMost = selectAtMost
+    }
+}
+
+
 public struct WrittenResponseQuestion: Codable {
     public let id: UUID
     public let content: String

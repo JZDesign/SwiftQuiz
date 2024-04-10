@@ -52,6 +52,11 @@ public struct QuizView: View {
                     }
                     nextQuestion()
                 }
+            case .multiSelectSurveyQuestion(let survey):
+                MultipleSelectSurveyQuestionView(question: survey) { _ in
+                    correct.append(currentQuestion)
+                    nextQuestion()
+                }
             case .shortform(let writtenResponseQuestion):
                 WrittenAnswerQuestionView(question: writtenResponseQuestion) { answer in
                     switch evaluateWrittenResponse(WrittenAnswer(question: writtenResponseQuestion, answer: answer)) {
