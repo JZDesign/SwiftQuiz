@@ -1,6 +1,12 @@
 import Foundation
 
-public struct Answer: Codable, Equatable, Identifiable {
+public enum Answer {
+    case singleSelected(SelectAnswer)
+    case multiSelected([SelectAnswer])
+    case written(WrittenAnswer)
+}
+
+public struct SelectAnswer: Codable, Equatable, Identifiable {
     public let id: UUID
     public let value: String
     
@@ -18,5 +24,4 @@ public struct WrittenAnswer {
         self.question = question
         self.answer = answer
     }
-
 }

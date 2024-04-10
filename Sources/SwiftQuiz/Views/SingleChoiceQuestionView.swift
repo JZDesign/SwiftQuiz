@@ -2,12 +2,12 @@ import SwiftUI
 
 public struct SingleChoiceQuestionView: View {
     let question: SingleChoiceQuestion
-    let action: (Answer) -> Void
+    let action: (SelectAnswer) -> Void
     
-    @State var selection: Answer?
+    @State var selection: SelectAnswer?
     @Environment(\.quizStyle) var style
     
-    public init(question: SingleChoiceQuestion, action: @escaping (Answer) -> Void) {
+    public init(question: SingleChoiceQuestion, action: @escaping (SelectAnswer) -> Void) {
         self.question = question
         self.action = action
     }

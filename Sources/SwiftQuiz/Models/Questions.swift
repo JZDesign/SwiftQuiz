@@ -3,10 +3,10 @@ import Foundation
 public struct SingleChoiceQuestion: Codable {
     public let id: UUID
     public let content: String
-    public let options: [Answer]
-    public let correctAnswer: Answer
+    public let options: [SelectAnswer]
+    public let correctAnswer: SelectAnswer
     
-    public init(id: UUID, content: String, options: [Answer], correctAnswer: Answer) {
+    public init(id: UUID, content: String, options: [SelectAnswer], correctAnswer: SelectAnswer) {
         self.id = id
         self.content = content
         self.options = options
@@ -17,10 +17,10 @@ public struct SingleChoiceQuestion: Codable {
 public struct MultipleChoiceQuestion: Codable {
     public let id: UUID
     public let content: String
-    public let options: [Answer]
-    public let correctAnswers: [Answer]
+    public let options: [SelectAnswer]
+    public let correctAnswers: [SelectAnswer]
     
-    public init(id: UUID, content: String, options: [Answer], correctAnswers: [Answer]) {
+    public init(id: UUID, content: String, options: [SelectAnswer], correctAnswers: [SelectAnswer]) {
         self.id = id
         self.content = content
         self.options = options
@@ -31,11 +31,11 @@ public struct MultipleChoiceQuestion: Codable {
 public struct MultiSelectSurveyQuestion: Codable {
     public let id: UUID
     public let content: String
-    public let options: [Answer]
+    public let options: [SelectAnswer]
     public let selectAtLeast: UInt
     public let selectAtMost: UInt
     
-    public init(id: UUID, content: String, options: [Answer], selectAtLeast: UInt, selectAtMost: UInt) {
+    public init(id: UUID, content: String, options: [SelectAnswer], selectAtLeast: UInt, selectAtMost: UInt) {
         self.id = id
         self.content = content
         self.options = options

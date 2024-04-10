@@ -2,14 +2,14 @@ import SwiftUI
 
 public struct MultipleChoiceQuestionView: View {
     let question: MultipleChoiceQuestion
-    let action: ([Answer]) -> Void
+    let action: ([SelectAnswer]) -> Void
 
-    @State var selection: [Answer] = []
+    @State var selection: [SelectAnswer] = []
     @Environment(\.quizStyle) var style
     @Environment(\.dynamicTypeSize) var dynamic
 
 
-    public init(question: MultipleChoiceQuestion, action: @escaping ([Answer]) -> Void) {
+    public init(question: MultipleChoiceQuestion, action: @escaping ([SelectAnswer]) -> Void) {
         self.question = question
         self.action = action
     }

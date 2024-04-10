@@ -2,7 +2,7 @@ import SwiftUI
 
 public struct AnswerCell: View {
     let isSelected: Bool
-    let answer: Answer
+    let answer: SelectAnswer
     let type: ChoiceType
     
     let onTap: () -> Void
@@ -13,7 +13,7 @@ public struct AnswerCell: View {
     
     public init(
         isSelected: Bool,
-        answer: Answer,
+        answer: SelectAnswer,
         type: ChoiceType,
         onTap: @escaping () -> Void
     ) {

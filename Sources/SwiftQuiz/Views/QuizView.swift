@@ -2,7 +2,7 @@ import SwiftUI
 
 public struct QuizView: View {
     let quiz: Quiz
-    let evaluateWrittenResponse: (WrittenAnswer) -> Result<Void, Error>
+    let evaluateAnswer: (Question, Answer) -> Result<Void, Error>
     let onComplete: (Quiz, Grade) -> Void
     @State var currentQuestion: Question?
     @State var correct = [Question]()
@@ -11,11 +11,11 @@ public struct QuizView: View {
 
     public init(
         quiz: Quiz,
-        evaluateWrittenResponse: @escaping (WrittenAnswer) -> Result<Void, Error>,
+        evaluateAnswer: @escaping (Question, Answer) -> Result<Void, Error>,
         onComplete: @escaping (Quiz, Grade) -> Void
     ) {
         self.quiz = quiz
-        self.evaluateWrittenResponse = evaluateWrittenResponse
+        self.evaluateAnswer = evaluateAnswer
         self.onComplete = onComplete
     }
     
@@ -30,54 +30,40 @@ public struct QuizView: View {
         }
     }
     
+    func handleResponse(forQuestion question: Question, _ res: Result<Void, Error>) {
+        switch res {
+        case .success:
+            correct.append(question)
+            nextQuestion()
+        case .failure:
+            incorrect.append(question)
+            nextQuestion()
+        }
+    }
+    
     @ViewBuilder
     var _body: some View {
         if let currentQuestion {
             switch currentQuestion {
             case .singleChoice(let singleChoiceQuestion):
                 SingleChoiceQuestionView(question: singleChoiceQuestion) { answer in
-                    if singleChoiceQuestion.correctAnswer == answer {
-                        correct.append(currentQuestion)
-                    } else {
-                        incorrect.append(currentQuestion)
-                    }
-                    nextQuestion()
+                    handleResponse(forQuestion: currentQuestion, evaluateAnswer(currentQuestion, .singleSelected(answer)))
                 }
             case .multipleChoice(let multipleChoiceQuestion):
                 MultipleChoiceQuestionView(question: multipleChoiceQuestion) { answers in
-                    if multipleChoiceQuestion.correctAnswers == answers {
-                        correct.append(currentQuestion)
-                    } else {
-                        incorrect.append(currentQuestion)
-                    }
-                    nextQuestion()
+                    handleResponse(forQuestion: currentQuestion, evaluateAnswer(currentQuestion, .multiSelected(answers)))
                 }
             case .multiSelectSurveyQuestion(let survey):
-                MultipleSelectSurveyQuestionView(question: survey) { _ in
-                    correct.append(currentQuestion)
-                    nextQuestion()
+                MultipleSelectSurveyQuestionView(question: survey) { answers in
+                    handleResponse(forQuestion: currentQuestion, evaluateAnswer(currentQuestion, .multiSelected(answers)))
                 }
             case .shortform(let writtenResponseQuestion):
                 WrittenAnswerQuestionView(question: writtenResponseQuestion) { answer in
-                    switch evaluateWrittenResponse(WrittenAnswer(question: writtenResponseQuestion, answer: answer)) {
-                    case .success:
-                        correct.append(currentQuestion)
-                        nextQuestion()
-                    case .failure:
-                        incorrect.append(currentQuestion)
-                        nextQuestion()
-                    }
+                    handleResponse(forQuestion: currentQuestion, evaluateAnswer(currentQuestion, .written(WrittenAnswer(question: writtenResponseQuestion, answer: answer))))
                 }
             case .longform(let writtenResponseQuestion):
                 WrittenAnswerQuestionView(question: writtenResponseQuestion) { answer in
-                    switch evaluateWrittenResponse(WrittenAnswer(question: writtenResponseQuestion, answer: answer)) {
-                    case .success:
-                        correct.append(currentQuestion)
-                        nextQuestion()
-                    case .failure:
-                        incorrect.append(currentQuestion)
-                        nextQuestion()
-                    }
+                    handleResponse(forQuestion: currentQuestion, evaluateAnswer(currentQuestion, .written(WrittenAnswer(question: writtenResponseQuestion, answer: answer))))
                 }
             }
         } else {
@@ -153,8 +139,29 @@ struct _preview: View {
                     ),
                     .shortform(.init(id: .init(), content: "Tell me what your name is", type: .short)),
                     .longform(.init(id: .init(), content: "Why is the sky blue", type: .long))
-                ])) { answer in
-                    return .success(())
+                ])) { question, answer in
+                    switch (question, answer) {
+                    case (.singleChoice(let q), .singleSelected(let a)):
+                        if q.correctAnswer == a {
+                            return .success(())
+                        } else {
+                            return .failure(ExampleError())
+                        }
+                    case (.multipleChoice(let q), .multiSelected(let a)):
+                        if q.correctAnswers == a {
+                            return .success(())
+                        } else {
+                            return .failure(ExampleError())
+                        }
+                    case (.multiSelectSurveyQuestion, .multiSelected):
+                        return .success(())
+                    case (.longform(let q), .written(let a)):
+                        return .success(())
+                    case (.shortform(let q), .written(let a)):
+                        return .success(())
+                    default:
+                        return .failure(ExampleError())
+                    }
                 } onComplete: { quiz, grade in
                     self.grade = grade.score
                     complete = true
@@ -163,4 +170,4 @@ struct _preview: View {
     }
 }
 
-
+struct ExampleError: Error {}

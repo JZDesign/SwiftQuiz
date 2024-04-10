@@ -4,14 +4,14 @@ import SwiftUI
 // TODO: Consolidate this with the other multi select view
 public struct MultipleSelectSurveyQuestionView: View {
     let question: MultiSelectSurveyQuestion
-    let action: ([Answer]) -> Void
+    let action: ([SelectAnswer]) -> Void
 
-    @State var selection: [Answer] = []
+    @State var selection: [SelectAnswer] = []
     @Environment(\.quizStyle) var style
     @Environment(\.dynamicTypeSize) var dynamic
 
 
-    public init(question: MultiSelectSurveyQuestion, action: @escaping ([Answer]) -> Void) {
+    public init(question: MultiSelectSurveyQuestion, action: @escaping ([SelectAnswer]) -> Void) {
         self.question = question
         self.action = action
     }
