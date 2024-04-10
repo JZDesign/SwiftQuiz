@@ -9,3 +9,14 @@ public struct Answer: Codable, Equatable, Identifiable {
         self.value = value
     }    
 }
+
+public struct WrittenAnswer {
+    public let question: WrittenResponseQuestion
+    public let answer: String
+
+    public init(question: WrittenResponseQuestion, answer: String) {
+        self.question = question
+        self.answer = answer
+    }
+
+}

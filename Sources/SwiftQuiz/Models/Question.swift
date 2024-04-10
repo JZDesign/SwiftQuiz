@@ -17,6 +17,17 @@ public enum Question: Codable {
         }
     }
     
+    var id: UUID {
+        switch self {
+        case .singleChoice(let singleChoiceQuestion):
+            return singleChoiceQuestion.id
+        case .multipleChoice(let multipleChoiceQuestion):
+            return multipleChoiceQuestion.id
+        case .shortform(let writtenResponseQuestion), .longform(let writtenResponseQuestion):
+            return writtenResponseQuestion.id
+        }
+    }
+    
     public init(from decoder: Decoder) throws {
         if let single = try? SingleChoiceQuestion(from: decoder) {
             self = .singleChoice(single)
