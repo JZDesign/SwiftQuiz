@@ -42,8 +42,13 @@ public struct WrittenAnswerQuestionView: View {
                             .padding()
                     }
                     .cornerRadius(style.cornerRadius)
-                    .shadow(color: isFocused ? style.selectedBorderColor : .primary, radius: 1)
                     .padding()
+                    .shadow(color: isFocused ? style.selectedBorderColor : .primary, radius: 1)
+                    .onAppear {
+                        if answer == "" {
+                            answer = "\n" // add some interior padding for mac
+                        }
+                    }
                 }
             }
         }
@@ -73,7 +78,7 @@ public struct WrittenAnswerQuestionView: View {
     WrittenAnswerQuestionView(
         question: .init(
             id: .init(),
-            content: "What is the answer to life and everything?",
+            content: "What is the answer to life, the universe, and everything?",
             type: .long
         )
     ) { _ in }

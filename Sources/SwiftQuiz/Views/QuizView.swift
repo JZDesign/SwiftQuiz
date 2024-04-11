@@ -115,7 +115,7 @@ struct _preview: View {
                     .singleChoice(
                         .init(
                             id: .init(),
-                            content: "What is the answer to life and everything?",
+                            content: "What is the answer to life, the universe, and everything?",
                             options: [
                                 .init(value: "Some long winded answer that really means nothing."),
                                 .init(value: "Some answer"),
@@ -128,7 +128,7 @@ struct _preview: View {
                     .multipleChoice(
                         .init(
                             id: .init(),
-                            content: "What is the answer to life and everything?",
+                            content: "What is the answer to life, the universe, and everything?",
                             options: [
                                 .init(value: "Some long winded answer that really means nothing."),
                                 .init(value: "Some answer"),

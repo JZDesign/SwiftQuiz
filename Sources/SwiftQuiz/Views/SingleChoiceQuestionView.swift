@@ -58,7 +58,7 @@ public struct SingleChoiceQuestionView: View {
     SingleChoiceQuestionView(
         question: .init(
         id: .init(),
-        content: "What is the answer to life and everything?",
+        content: "What is the answer to life, the universe, and everything?",
         options: [
             .init(value: "Some long winded answer that really means nothing."),
             .init(value: "Some answer"),
