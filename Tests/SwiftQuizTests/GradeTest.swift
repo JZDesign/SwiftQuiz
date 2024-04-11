@@ -2,7 +2,7 @@ import XCTest
 @testable import SwiftQuiz
 
 final class GradeTest: XCTestCase {
-    let question = Question.singleChoice(.init(id: .init(), content: "test", options: [], correctAnswer: .init(id: .init(), value: "")))
+    let question = Question.singleChoice(.init(id: .init(), content: "test", options: [], correctAnswer: .init(value: "")))
     func test_gradeCalculations() {
         let tests = [
             (Grade(correct: [], incorrect: []), "0%"),

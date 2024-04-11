@@ -82,14 +82,14 @@ public struct AnswerCell: View {
 #Preview {
     ScrollView {
         VStack {
-            AnswerCell(isSelected: false, answer: .init(id: .init(), value: "This is a sample answer"), type: .singleCoice) {}
+            AnswerCell(isSelected: false, answer: .init(value: "This is a sample answer"), type: .singleCoice) {}
                 .foregroundStyle(Color.indigo)
                 .environment(\.quizStyle, .init(shouldFillHorizontalSpace: false))
-            AnswerCell(isSelected: false, answer: .init(id: .init(), value: "This is a sample answer"), type: .multipleChoice) {}
+            AnswerCell(isSelected: false, answer: .init(value: "This is a sample answer"), type: .multipleChoice) {}
                 .environment(\.quizStyle, .init(cornerRadius: 100))
-            AnswerCell(isSelected: true, answer: .init(id: .init(), value: "This is a sample answer"), type: .singleCoice) {}
+            AnswerCell(isSelected: true, answer: .init(value: "This is a sample answer"), type: .singleCoice) {}
                 .environment(\.quizStyle, .init(unselectedPrimaryColor: .gray, selectedPrimaryColor: .blue))
-            AnswerCell(isSelected: true, answer: .init(id: .init(), value: "This is a sample answer"), type: .multipleChoice) {}
+            AnswerCell(isSelected: true, answer: .init(value: "This is a sample answer"), type: .multipleChoice) {}
                 .environment(\.quizStyle, .init(selectedPrimaryColor: .indigo))
                 // Add custom Background
                 .background(Color.black)

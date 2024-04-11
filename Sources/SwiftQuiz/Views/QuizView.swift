@@ -59,11 +59,12 @@ public struct QuizView: View {
                 }
             case .shortform(let writtenResponseQuestion):
                 WrittenAnswerQuestionView(question: writtenResponseQuestion) { answer in
-                    handleResponse(forQuestion: currentQuestion, evaluateAnswer(currentQuestion, .written(WrittenAnswer(question: writtenResponseQuestion, answer: answer))))
+                    handleResponse(forQuestion: currentQuestion, evaluateAnswer(currentQuestion, .written(WrittenAnswer(answer: answer))))
                 }
             case .longform(let writtenResponseQuestion):
                 WrittenAnswerQuestionView(question: writtenResponseQuestion) { answer in
-                    handleResponse(forQuestion: currentQuestion, evaluateAnswer(currentQuestion, .written(WrittenAnswer(question: writtenResponseQuestion, answer: answer))))
+                    handleResponse(forQuestion: currentQuestion, evaluateAnswer(currentQuestion, .written(WrittenAnswer(
+                        answer: answer))))
                 }
             }
         } else {
@@ -116,12 +117,12 @@ struct _preview: View {
                             id: .init(),
                             content: "What is the answer to life and everything?",
                             options: [
-                                .init(id: .init(), value: "Some long winded answer that really means nothing."),
-                                .init(id: .init(), value: "Some answer"),
-                                .init(id: UUID(uuidString: "6278CCCA-1629-41C9-AED0-3C8A2286D447")!, value: "42"),
-                                .init(id: .init(), value: "cheese is good"),
+                                .init(value: "Some long winded answer that really means nothing."),
+                                .init(value: "Some answer"),
+                                .init(value: "42"),
+                                .init(value: "cheese is good"),
                             ],
-                            correctAnswer: .init(id: UUID(uuidString: "6278CCCA-1629-41C9-AED0-3C8A2286D447")!, value: "42")
+                            correctAnswer: .init(value: "42")
                         )
                     ),
                     .multipleChoice(
@@ -129,12 +130,12 @@ struct _preview: View {
                             id: .init(),
                             content: "What is the answer to life and everything?",
                             options: [
-                                .init(id: .init(), value: "Some long winded answer that really means nothing."),
-                                .init(id: .init(), value: "Some answer"),
-                                .init(id: UUID(uuidString: "6278CCCA-1629-41C9-AED0-3C8A2286D447")!, value: "42"),
-                                .init(id: .init(), value: "cheese is good"),
+                                .init(value: "Some long winded answer that really means nothing."),
+                                .init(value: "Some answer"),
+                                .init(value: "42"),
+                                .init(value: "cheese is good"),
                             ],
-                            correctAnswers: [.init(id: UUID(uuidString: "6278CCCA-1629-41C9-AED0-3C8A2286D447")!, value: "42")]
+                            correctAnswers: [.init(value: "42")]
                         )
                     ),
                     .shortform(.init(id: .init(), content: "Tell me what your name is", type: .short)),
@@ -155,9 +156,9 @@ struct _preview: View {
                         }
                     case (.multiSelectSurveyQuestion, .multiSelected):
                         return .success(())
-                    case (.longform(let q), .written(let a)):
+                    case (.longform, .written):
                         return .success(())
-                    case (.shortform(let q), .written(let a)):
+                    case (.shortform, .written):
                         return .success(())
                     default:
                         return .failure(ExampleError())

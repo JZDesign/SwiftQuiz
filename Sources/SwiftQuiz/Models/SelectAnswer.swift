@@ -6,22 +6,18 @@ public enum Answer {
     case written(WrittenAnswer)
 }
 
-public struct SelectAnswer: Codable, Equatable, Identifiable {
-    public let id: UUID
+public struct SelectAnswer: Codable, Equatable {
     public let value: String
     
-    public init(id: UUID, value: String) {
-        self.id = id
+    public init(value: String) {
         self.value = value
-    }    
+    }
 }
 
-public struct WrittenAnswer {
-    public let question: WrittenResponseQuestion
+public struct WrittenAnswer: Codable, Equatable {
     public let answer: String
 
-    public init(question: WrittenResponseQuestion, answer: String) {
-        self.question = question
+    public init(answer: String) {
         self.answer = answer
     }
 }

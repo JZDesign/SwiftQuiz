@@ -27,7 +27,7 @@ public struct MultipleSelectSurveyQuestionView: View {
             .padding(.bottom)
             .opacity(0.6)
             
-        ForEach(question.options) { option in
+        ForEach(question.options, id: \.value) { option in
             AnswerCell(isSelected: selection.contains(option), answer: option, type: .multipleChoice) {
                 withAnimation(.snappy(extraBounce: 0.5)) {
                     if selection.contains(option) {
@@ -80,10 +80,10 @@ public struct MultipleSelectSurveyQuestionView: View {
         id: .init(),
         content: "What is the answer to life and everything?",
         options: [
-            .init(id: .init(), value: "Some long winded answer that really means nothing."),
-            .init(id: .init(), value: "Some answer"),
-            .init(id: .init(), value: "42"),
-            .init(id: .init(), value: "cheese is good"),
+            .init(value: "Some long winded answer that really means nothing."),
+            .init(value: "Some answer"),
+            .init(value: "42"),
+            .init(value: "cheese is good"),
         ],
         selectAtLeast: 1,
         selectAtMost: 3

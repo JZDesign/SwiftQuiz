@@ -14,7 +14,7 @@ public struct SingleChoiceQuestionView: View {
     
     @ViewBuilder
     var answer: some View {
-        ForEach(question.options) { option in
+        ForEach(question.options, id: \.value) { option in
             AnswerCell(isSelected: selection == option, answer: option, type: .singleCoice) {
                 withAnimation(.snappy(extraBounce: 0.5)) {
                     selection = option
@@ -60,12 +60,12 @@ public struct SingleChoiceQuestionView: View {
         id: .init(),
         content: "What is the answer to life and everything?",
         options: [
-            .init(id: .init(), value: "Some long winded answer that really means nothing."),
-            .init(id: .init(), value: "Some answer"),
-            .init(id: .init(), value: "42"),
-            .init(id: .init(), value: "cheese is good"),
+            .init(value: "Some long winded answer that really means nothing."),
+            .init(value: "Some answer"),
+            .init(value: "42"),
+            .init(value: "cheese is good"),
         ],
-        correctAnswer: .init(id: .init(), value: "42")
+        correctAnswer: .init(value: "42")
 
         )) { answer in
             
