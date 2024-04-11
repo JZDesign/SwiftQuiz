@@ -18,7 +18,7 @@ public struct WrittenAnswerQuestionView: View {
             VStack {
                 Text(question.content)
                     .font(.title).fontWeight(.semibold)
-                    .padding(.horizontal)
+                    .padding()
                 
                 if question.type == .short {
                     TextField("Answer", text: $answer)

@@ -16,7 +16,7 @@ public struct SingleChoiceQuestionView: View {
     var answer: some View {
         ForEach(question.options, id: \.value) { option in
             AnswerCell(isSelected: selection == option, answer: option, type: .singleCoice) {
-                withAnimation(.snappy(extraBounce: 0.5)) {
+                withAnimation(style.toggleAnswerAnimation) {
                     selection = option
                 }
             }

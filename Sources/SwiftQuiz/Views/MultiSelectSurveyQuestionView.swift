@@ -29,7 +29,7 @@ public struct MultipleSelectSurveyQuestionView: View {
             
         ForEach(question.options, id: \.value) { option in
             AnswerCell(isSelected: selection.contains(option), answer: option, type: .multipleChoice) {
-                withAnimation(.snappy(extraBounce: 0.5)) {
+                withAnimation(style.toggleAnswerAnimation) {
                     if selection.contains(option) {
                         selection.removeAll { answer in
                             answer == option
@@ -50,7 +50,7 @@ public struct MultipleSelectSurveyQuestionView: View {
             VStack(alignment: dynamic.isAccessibilitySize ? .center : .leading) {
                 Text(question.content)
                     .font(.title).fontWeight(.semibold)
-                    .padding(.horizontal)
+                    .padding()
                 answer
             }
         }

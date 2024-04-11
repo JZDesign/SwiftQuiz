@@ -7,6 +7,7 @@ public struct Style {
     let selectedBorderColor: Color
     let cornerRadius: CGFloat
     let shouldFillHorizontalSpace: Bool
+    let toggleAnswerAnimation: Animation
     
     public init(
         cornerRadius: CGFloat = 5,
@@ -14,12 +15,13 @@ public struct Style {
         unselectedPrimaryColor: Color? = nil,
         selectedPrimaryColor: Color? = nil,
         unselectedBorderColor: Color? = nil,
-        selectedBorderColor: Color? = nil
+        selectedBorderColor: Color? = nil,
+        toggleAnswerAnimation: Animation = .snappy(extraBounce: 0.5)
     ) {
         self.cornerRadius = cornerRadius
         self.shouldFillHorizontalSpace = shouldFillHorizontalSpace
         
-        
+        self.toggleAnswerAnimation = toggleAnswerAnimation
         if let unselectedPrimaryColor {
             self.unselectedPrimaryColor = unselectedPrimaryColor
         } else {
