@@ -8,6 +8,7 @@ public struct Style {
     let cornerRadius: CGFloat
     let shouldFillHorizontalSpace: Bool
     let toggleAnswerAnimation: Animation
+    let rstackThreshold: DynamicTypeSize
     
     public init(
         cornerRadius: CGFloat = 5,
@@ -16,12 +17,14 @@ public struct Style {
         selectedPrimaryColor: Color? = nil,
         unselectedBorderColor: Color? = nil,
         selectedBorderColor: Color? = nil,
-        toggleAnswerAnimation: Animation = .snappy(extraBounce: 0.5)
+        toggleAnswerAnimation: Animation = .snappy(extraBounce: 0.5),
+        rstackThreshold: DynamicTypeSize = .accessibility1
     ) {
         self.cornerRadius = cornerRadius
         self.shouldFillHorizontalSpace = shouldFillHorizontalSpace
-        
+        self.rstackThreshold = rstackThreshold
         self.toggleAnswerAnimation = toggleAnswerAnimation
+        
         if let unselectedPrimaryColor {
             self.unselectedPrimaryColor = unselectedPrimaryColor
         } else {
