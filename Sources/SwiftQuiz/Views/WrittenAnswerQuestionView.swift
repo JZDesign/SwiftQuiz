@@ -26,10 +26,12 @@ public struct WrittenAnswerQuestionView: View {
                         .tint(style.selectedPrimaryColor)
                         .focused($isFocused)
                         .padding()
+                        .padding(.horizontal)
                         .overlay(
                             RoundedRectangle(cornerSize: .init(width: style.cornerRadius, height: style.cornerRadius))
                                 .stroke(isFocused ? style.selectedBorderColor : style.unselectedBorderColor, lineWidth: 2)
                                 .padding(4)
+                                .padding(.horizontal)
                         )
                 } else {
                     ZStack {
@@ -79,7 +81,7 @@ public struct WrittenAnswerQuestionView: View {
         question: .init(
             id: .init(),
             content: "What is the answer to life, the universe, and everything?",
-            type: .long
+            type: .short
         )
     ) { _ in }
         .environment(\.quizStyle, .init(unselectedPrimaryColor: .gray, selectedPrimaryColor: .red))
