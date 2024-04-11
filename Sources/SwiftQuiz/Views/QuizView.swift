@@ -49,23 +49,28 @@ public struct QuizView: View {
                 SingleChoiceQuestionView(question: singleChoiceQuestion) { answer in
                     handleResponse(forQuestion: currentQuestion, evaluateAnswer(currentQuestion, .singleSelected(answer)))
                 }
+                .transition(.push(from: .trailing))
             case .multipleChoice(let multipleChoiceQuestion):
                 MultipleChoiceQuestionView(question: multipleChoiceQuestion) { answers in
                     handleResponse(forQuestion: currentQuestion, evaluateAnswer(currentQuestion, .multiSelected(answers)))
                 }
+                .transition(.push(from: .trailing))
             case .multiSelectSurveyQuestion(let survey):
                 MultipleSelectSurveyQuestionView(question: survey) { answers in
                     handleResponse(forQuestion: currentQuestion, evaluateAnswer(currentQuestion, .multiSelected(answers)))
                 }
+                .transition(.push(from: .trailing))
             case .shortform(let writtenResponseQuestion):
                 WrittenAnswerQuestionView(question: writtenResponseQuestion) { answer in
                     handleResponse(forQuestion: currentQuestion, evaluateAnswer(currentQuestion, .written(WrittenAnswer(answer: answer))))
                 }
+                .transition(.push(from: .trailing))
             case .longform(let writtenResponseQuestion):
                 WrittenAnswerQuestionView(question: writtenResponseQuestion) { answer in
                     handleResponse(forQuestion: currentQuestion, evaluateAnswer(currentQuestion, .written(WrittenAnswer(
                         answer: answer))))
                 }
+                .transition(.push(from: .trailing))
             }
         } else {
             ProgressView()
@@ -73,11 +78,7 @@ public struct QuizView: View {
     }
     
     func nextQuestion() {
-
         let question = currentQuestion
-        withAnimation {
-            currentQuestion = nil
-        }
         guard let index = quiz.questions.firstIndex(where: { q in
             q.id == question?.id
         }) else {
